@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>yallahsoltane</title>
+  <style>
+    :root {
+      --bg: #05070b;
+      --panel: #0c1016;
+      --panel-2: #121821;
+      --text: #edf3ff;
+      --muted: #9ba7ba;
+      --gold: #d4af37;
+      --red: #ef4444;
+      --blue: #2563eb;
+      --line: rgba(255,255,255,0.08);
+      --shadow: 0 18px 40px rgba(0,0,0,0.45);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, #020306 0%, #070a10 100%);
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    header {
+      background: linear-gradient(90deg, rgba(239,68,68,0.95), rgba(37,99,235,0.95));
+      padding: 1rem 0.9rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topbar {
+      max-width: 1220px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      font-size: clamp(1.3rem, 2vw, 1.9rem);
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-weight: 900;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      min-width: 150px;
+    }
+
+    .field label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.9);
+    }
+
+    input {
+      min-height: 42px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      color: white;
+      padding: 0.7rem 0.8rem;
+      outline: none;
+    }
+
+    input::placeholder { color: rgba(255,255,255,0.72); }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+
+    button {
+      cursor: pointer;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      min-height: 42px;
+      padding: 0.7rem 0.9rem;
+      font-weight: 700;
+      transition: transform 0.15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.38rem 0.72rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.04);
+    }
+
+    .layout {
+      max-width: 1220px;
+      margin: 1.2rem auto 2rem;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(280px, 0.95fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      background-color: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 1.08rem;
+      letter-spacing: -0.03em;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0.85rem 1rem 0.7rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .chip {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 10px;
+      min-height: 36px;
+      padding: 0.45rem 0.9rem;
+      font-weight: 800;
+    }
+
+    .chip.active {
+      background: linear-gradient(90deg, var(--red), var(--blue));
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .team-strip {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding: 0.8rem 1rem 0.4rem;
+    }
+
+    .team-pill {
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      padding: 0.55rem 0.7rem;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .team-pill:hover { transform: translateY(-2px); }
+    .team-pill.active {
+      background: linear-gradient(90deg, rgba(239,68,68,0.2), rgba(37,99,235,0.2));
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .badge {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.35);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .ticker {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 0.7rem 1rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 6px rgba(239,68,68,0.12);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .matches-wrap, .team-panel, .news-wrap {
+      padding: 1rem;
+    }
+
+    .league-block {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.008), rgba(255,255,255,0.01));
+      margin-bottom: 0.9rem;
+    }
+
+    .league-head {
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .match-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 0.7rem;
+      align-items: center;
+      padding: 0.82rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s ease;
+    }
+
+    .match-row:last-child { border-bottom: none; }
+    .match-row:hover { background: rgba(255,255,255,0.01); }
+
+    .team-stack { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+    .team-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 0;
+      font-weight: 800;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .team-button {
+      border: none;
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .match-center {
+      text-align: right;
+      min-width: 110px;
+    }
+
+    .score {
+      font-weight: 900;
+      color: var(--gold);
+      font-size: 1.02rem;
+    }
+
+    .match-status {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .match-status.live { color: var(--red); }
+
+    .match-time { color: var(--muted); font-weight: 700; font-size: 0.82rem; }
+
+    .fav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.05rem;
+    }
+
+    .fav-btn.is-fav {
+      color: var(--gold);
+      background: rgba(212,175,55,0.08);
+      border-color: rgba(212,175,55,0.15);
+    }
+
+    .team-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.9rem;
+    }
+
+    .team-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .team-title {
+      margin: 0;
+      font-size: 1.02rem;
+      letter-spacing: -0.02em;
+    }
+
+    .fixture-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .fixture-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      border-top: 1px solid var(--line);
+      padding-top: 0.65rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .fixture-row:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .fixture-row strong {
+      color: var(--text);
+      font-size: 0.88rem;
+    }
+
+    .news-list {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .news-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      padding: 0.8rem 0.9rem;
+    }
+
+    .news-item a {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .news-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .news-meta {
+      margin-top: 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 1rem;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.01);
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">YS</div>
+        <div>yallahsoltane</div>
+      </div>
+
+      <div class="toolbar">
+        <button id="prev-day" type="button">← Prev</button>
+        <div class="field">
+          <label for="date">Match day</label>
+          <input id="date" type="date" />
+        </div>
+        <button id="next-day" type="button">Next →</button>
+        <div class="field">
+          <label for="search">Search</label>
+          <input id="search" type="search" placeholder="Team or league" />
+        </div>
+        <button id="theme-toggle" type="button">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel" aria-labelledby="matches-title">
+      <div class="panel-header">
+        <h2 id="matches-title">Matches</h2>
+        <div class="pill">
+          <span class="dot"></span>
+          <span id="last-updated">Waiting…</span>
+        </div>
+      </div>
+
+      <div class="chip-row" aria-label="Filters">
+        <button class="chip active" data-view="all" type="button">All</button>
+        <button class="chip" data-view="live" type="button">Live</button>
+        <button class="chip" data-view="favorites" type="button">Favorites</button>
+      </div>
+
+      <div id="team-strip" class="team-strip" aria-label="Featured teams"></div>
+
+      <div class="ticker">
+        <div class="live-dot"></div>
+        <div id="ticker-text">Loading live matches…</div>
+      </div>
+
+      <div id="matches" class="matches-wrap" aria-live="polite"></div>
+    </section>
+
+    <aside class="panel" aria-labelledby="team-focus-title">
+      <div class="panel-header">
+        <h2 id="team-focus-title">Team focus</h2>
+      </div>
+      <div id="team-panel" class="team-panel"></div>
+    </aside>
+
+    <section class="panel" style="grid-column: 1 / -1;" aria-labelledby="news-title">
+      <div class="panel-header">
+        <h2 id="news-title">Football News</h2>
+      </div>
+      <div id="news" class="news-wrap"></div>
+    </section>
+  </main>
+
+  <script>
+    const SPORTSDB_KEY = "3";
+    const BIG_TEAMS = ["Real Madrid", "Barcelona", "Manchester United", "Manchester City", "Liverpool", "Chelsea", "Arsenal", "Paris Saint-Germain", "Bayern Munich", "Juventus"];
+    const state = {
+      allMatches: [],
+      selectedTeam: null,
+      searchTerm: "",
+      view: "all",
+      favorites: JSON.parse(localStorage.getItem("ys-favs") || "[]"),
+      darkMode: localStorage.getItem("ys-dark") === "true"
+    };
+
+    const dateInput = document.getElementById("date");
+    const searchInput = document.getElementById("search");
+    const matchesEl = document.getElementById("matches");
+    const teamPanelEl = document.getElementById("team-panel");
+    const newsEl = document.getElementById("news");
+    const tickerText = document.getElementById("ticker-text");
+    const lastUpdatedEl = document.getElementById("last-updated");
+
+    function saveFavorites() {
+      localStorage.setItem("ys-favs", JSON.stringify(state.favorites));
+    }
+
+    function toggleTheme() {
+      state.darkMode = !state.darkMode;
+      document.body.style.filter = state.darkMode ? "none" : "none";
+      localStorage.setItem("ys-dark", state.darkMode ? "true" : "false");
+      document.getElementById("theme-toggle").textContent = state.darkMode ? "☀️" : "🌙";
+    }
+
+    function safeText(value) {
+      const text = value == null ? "" : String(value);
+      const el = document.createElement("div");
+      el.textContent = text;
+      return el.innerHTML;
+    }
+
+    function hasScore(match) {
+      return match.intHomeScore !== null && match.intAwayScore !== null && match.intHomeScore !== undefined && match.intAwayScore !== undefined;
+    }
+
+    function getMatchState(match) {
+      const status = (match.strStatus || "").toUpperCase();
+      if (hasScore(match)) return "score";
+      if (status.includes("LIVE") || status.includes("IN PLAY") || status.includes("HT")) return "live";
+      return "time";
+    }
+
+    function getStatusLabel(match) {
+      const status = (match.strStatus || "").toUpperCase();
+      if (status.includes("LIVE") || status.includes("IN PLAY")) return "Live";
+      if (status.includes("HT")) return "HT";
+      if (status.includes("FT")) return "FT";
+      if (status.includes("PEN")) return "Pens";
+      return "Ko";
+    }
+
+    function formatLocalTime(dateEvent, time) {
+      if (!dateEvent) return "TBD";
+      const normalizedTime = time ? (time.length === 5 ? time + ":00" : time) : "00:00:00";
+      const d = new Date(`${dateEvent}T${normalizedTime}Z`);
+      if (isNaN(d.getTime())) return "TBD";
+      return new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit", timeZoneName: "short" }).format(d);
+    }
+
+    function renderTeamStrip() {
+      const strip = document.getElementById("team-strip");
+      strip.innerHTML = "";
+      BIG_TEAMS.forEach(team => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "team-pill" + (state.searchTerm === team ? " active" : "");
+        btn.innerHTML = `<span class="badge">${team.split(" ").map(x => x[0]).slice(0,2).join("")}</span><span>${safeText(team)}</span>`;
+        btn.addEventListener("click", () => {
+          state.searchTerm = state.searchTerm === team ? "" : team;
+          searchInput.value = state.searchTerm;
+          renderTeamStrip();
+          renderMatches();
+        });
+        strip.appendChild(btn);
+      });
+    }
+
+    function renderMatches() {
+      const q = (state.searchTerm || "").trim().toLowerCase();
+      const visible = state.allMatches.filter(match => {
+        const league = match.strLeague || "";
+        const home = match.strHomeTeam || "";
+        const away = match.strAwayTeam || "";
+        const hay = `${home} ${away} ${league}`.toLowerCase();
+        const queryOk = !q || hay.includes(q);
+        const viewOk =
+          state.view === "all"
+            ? true
+            : state.view === "live"
+              ? getMatchState(match) === "live"
+              : state.favorites.includes(home) || state.favorites.includes(away);
+        return queryOk && viewOk;
+      });
+
+      if (!visible.length) {
+        matchesEl.innerHTML = '<div class="empty">No matches match your current filters.</div>';
+        tickerText.textContent = "No live matches";
+        return;
+      }
+
+      const grouped = {};
+      visible.forEach(match => {
+        const league = match.strLeague || "Unknown League";
+        if (!grouped[league]) grouped[league] = [];
+        grouped[league].push(match);
+      });
+
+      let liveCount = 0;
+      matchesEl.innerHTML = "";
+
+      Object.entries(grouped).forEach(([league, list]) => {
+        const block = document.createElement("div");
+        block.className = "league-block";
+
+        const head = document.createElement("div");
+        head.className = "league-head";
+        head.textContent = league;
+        block.appendChild(head);
+
+        list.forEach(match => {
+          if (getMatchState(match) === "live") liveCount++;
+
+          const row = document.createElement("div");
+          row.className = "match-row";
+
+          const teams = document.createElement("div");
+          teams.className = "team-stack";
+          const homeRow = document.createElement("div");
+          homeRow.className = "team-name-row";
+          homeRow.innerHTML = `<button class="team-button" data-team="${safeText(match.strHomeTeam)}">${safeText(match.strHomeTeam)}</button>`;
+          const awayRow = document.createElement("div");
+          awayRow.className = "team-name-row";
+          awayRow.innerHTML = `<button class="team-button" data-team="${safeText(match.strAwayTeam)}">${safeText(match.strAwayTeam)}</button>`;
+          teams.appendChild(homeRow);
+          teams.appendChild(awayRow);
+
+          const info = document.createElement("div");
+          info.className = "match-center";
+
+          if (getMatchState(match) === "score") {
+            info.innerHTML = `<div class="score">${safeText(match.intHomeScore)} - ${safeText(match.intAwayScore)}</div>`;
+          } else if (getMatchState(match) === "live") {
+            info.innerHTML = `<div class="match-status live">${safeText(getStatusLabel(match))}</div>`;
+          } else {
+            info.innerHTML = `<div class="match-status">${safeText(getStatusLabel(match))}</div><div class="match-time">${safeText(formatLocalTime(match.dateEvent, match.strTime))}</div>`;
+          }
+
+          const fav = document.createElement("button");
+          fav.type = "button";
+          fav.className = "fav-btn" + (state.favorites.includes(match.strHomeTeam) ? " is-fav" : "");
+          fav.textContent = state.favorites.includes(match.strHomeTeam) ? "★" : "☆";
+          fav.addEventListener("click", () => {
+            toggleFavorite(match.strHomeTeam);
+            renderMatches();
+          });
+
+          row.appendChild(teams);
+          row.appendChild(info);
+          row.appendChild(fav);
+          block.appendChild(row);
+        });
+
+        matchesEl.appendChild(block);
+      });
+
+      tickerText.textContent = `${liveCount} live match${liveCount !== 1 ? "es" : ""} • auto-refresh`;
+    }
+
+    function toggleFavorite(teamName) {
+      if (!teamName) return;
+      if (state.favorites.includes(teamName)) {
+        state.favorites = state.favorites.filter(team => team !== teamName);
+      } else {
+        state.favorites.push(teamName);
+      }
+      saveFavorites();
+      renderTeamPanel();
+      renderMatches();
+    }
+
+    async function loadMatches(dateValue) {
+      const url = `https://www.thesportsdb.com/api/v1/json/${SPORTSDB_KEY}/eventsday.php?d=${dateValue}&s=Soccer`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        state.allMatches = Array.isArray(data.events) ? data.events : [];
+        renderMatches();
+        renderTeamPanel();
+        lastUpdatedEl.textContent = `Updated ${new Date().toLocaleTimeString([], {hour: "numeric", minute: "2-digit"})}`;
+      } catch (err) {
+        console.error(err);
+        matchesEl.innerHTML = '<div class="empty">Could not load matches right now.</div>';
+      }
+    }
+
+    async function loadNews() {
+      newsEl.innerHTML = '<div class="empty">Loading news…</div>';
+      try {
+        const url = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("http://www.skysports.com/rss/0,,11095,00.xml");
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const json = await res.json();
+        const items = Array.isArray(json.items) ? json.items.slice(0, 12) : [];
+
+        if (!items.length) {
+          newsEl.innerHTML = '<div class="empty">No news available.</div>';
+          return;
+        }
+
+        newsEl.innerHTML = "";
+        items.forEach(item => {
+          const entry = document.createElement("article");
+          entry.className = "news-item";
+          entry.innerHTML = `
+            <a href="${safeText(item.link || "#")}" target="_blank" rel="noopener noreferrer">${safeText(item.title || "Untitled")}</a>
+            <p>${safeText((item.description || "").replace(/<[^>]*>/g, " ").slice(0, 180))}</p>
+            <div class="news-meta"><span>${safeText(item.pubDate ? new Date(item.pubDate).toLocaleString() : "Recently")}</span><span>Sky Sports</span></div>
+          `;
+          newsEl.appendChild(entry);
+        });
+      } catch (err) {
+        console.error(err);
+        newsEl.innerHTML = '<div class="empty">Could not load football news.</div>';
+      }
+    }
+
+    function renderTeamPanel() {
+      if (!state.selectedTeam) {
+        teamPanelEl.innerHTML = '<div class="team-card"><div class="empty">Select a team to view fixtures</div></div>';
+        return;
+      }
+
+      const teamMatches = state.allMatches.filter(match => match.strHomeTeam === state.selectedTeam || match.strAwayTeam === state.selectedTeam);
+      const isFav = state.favorites.includes(state.selectedTeam);
+
+      const card = document.createElement("div");
+      card.className = "team-card";
+      card.innerHTML = `
+        <div class="team-top">
+          <h3 class="team-title">${safeText(state.selectedTeam)}</h3>
+          <button type="button" class="fav-btn ${isFav ? "is-fav" : ""}" data-team="${safeText(state.selectedTeam)}">${isFav ? "★" : "☆"}</button>
+        </div>
+      `;
+
+      const list = document.createElement("div");
+      list.className = "fixture-list";
+
+      if (!teamMatches.length) {
+        list.innerHTML = '<div class="empty">No fixtures available for this team.</div>';
+      } else {
+        teamMatches.slice(0, 5).forEach(match => {
+          const opponent = match.strHomeTeam === state.selectedTeam ? match.strAwayTeam : match.strHomeTeam;
+          const item = document.createElement("div");
+          item.className = "fixture-row";
+          item.innerHTML = `
+            <strong>${safeText(opponent)}</strong>
+            <span>${safeText(match.dateEvent || "TBD")}</span>
+          `;
+          list.appendChild(item);
+        });
+      }
+
+      card.appendChild(list);
+      teamPanelEl.innerHTML = "";
+      teamPanelEl.appendChild(card);
+
+      const btn = card.querySelector(".fav-btn");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          toggleFavorite(state.selectedTeam);
+          renderTeamPanel();
+          renderMatches();
+        });
+      }
+    }
+
+    function bindEvents() {
+      document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+      document.getElementById("prev-day").addEventListener("click", () => changeDate(-1));
+      document.getElementById("next-day").addEventListener("click", () => changeDate(1));
+      dateInput.addEventListener("change", () => loadMatches(dateInput.value));
+      searchInput.addEventListener("input", (e) => {
+        state.searchTerm = e.target.value;
+        renderTeamStrip();
+        renderMatches();
+      });
+
+      document.querySelectorAll(".chip").forEach(chip => {
+        chip.addEventListener("click", () => {
+          state.view = chip.dataset.view;
+          document.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === chip));
+          renderMatches();
+        });
+      });
+
+      matchesEl.addEventListener("click", (event) => {
+        const teamButton = event.target.closest(".team-button");
+        if (teamButton) {
+          state.selectedTeam = teamButton.dataset.team || null;
+          renderTeamPanel();
+          return;
+        }
+      });
+    }
+
+    function changeDate(offset) {
+      const cur = new Date(dateInput.value + "T00:00:00Z");
+      cur.setUTCDate(cur.getUTCDate() + offset);
+      dateInput.value = cur.toISOString().slice(0, 10);
+      loadMatches(dateInput.value);
+    }
+
+    async function init() {
+      dateInput.value = new Date().toISOString().slice(0, 10);
+      renderTeamStrip();
+      bindEvents();
+      applyTheme();
+      await Promise.all([loadMatches(dateInput.value), loadNews()]);
+      setInterval(() => loadMatches(dateInput.value), 30000);
+    }
+
+    function applyTheme() {
+      document.getElementById("theme-toggle").textContent = state.darkMode ? "☀️" : "🌙";
+    }
+
+    init();
+  </script>
+</body>
+</html>
