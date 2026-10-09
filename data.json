@@ -1,0 +1,74 @@
+{
+  "matches": [
+    {
+      "strLeague": "UEFA Champions League",
+      "dateEvent": "2026-10-15",
+      "strTime": "20:00:00",
+      "strHomeTeam": "Real Madrid",
+      "strAwayTeam": "Manchester City",
+      "intHomeScore": 2,
+      "intAwayScore": 1,
+      "strStatus": "FT"
+    },
+    {
+      "strLeague": "Premier League",
+      "dateEvent": "2026-10-16",
+      "strTime": "18:30:00",
+      "strHomeTeam": "Liverpool",
+      "strAwayTeam": "Chelsea",
+      "intHomeScore": null,
+      "intAwayScore": null,
+      "strStatus": "Live"
+    },
+    {
+      "strLeague": "La Liga",
+      "dateEvent": "2026-10-17",
+      "strTime": "19:00:00",
+      "strHomeTeam": "Barcelona",
+      "strAwayTeam": "Real Madrid",
+      "intHomeScore": null,
+      "intAwayScore": null,
+      "strStatus": "Kickoff"
+    },
+    {
+      "strLeague": "Serie A",
+      "dateEvent": "2026-10-18",
+      "strTime": "20:45:00",
+      "strHomeTeam": "Juventus",
+      "strAwayTeam": "Inter",
+      "intHomeScore": null,
+      "intAwayScore": null,
+      "strStatus": "Kickoff"
+    }
+  ],
+  "news": [
+    {
+      "title": "Sky Sports: Top clubs ready for another big weekend of action",
+      "link": "https://www.skysports.com/football",
+      "description": "Premier League and Champions League storylines continue to build as big fixtures approach.",
+      "source": "Sky Sports",
+      "pubDate": "2026-10-09T09:00:00Z"
+    },
+    {
+      "title": "ESPN: European heavyweights look to control midfield battles",
+      "link": "https://www.espn.com/soccer/",
+      "description": "Midfield duels will decide the biggest matches this midweek in Europe.",
+      "source": "ESPN",
+      "pubDate": "2026-10-09T10:30:00Z"
+    },
+    {
+      "title": "beIN Sports: Big-name clubs prepare for decisive month",
+      "link": "https://www.beinsports.com/en",
+      "description": "A packed run of fixtures could reshape the table and European qualification race.",
+      "source": "beIN Sports",
+      "pubDate": "2026-10-09T08:15:00Z"
+    },
+    {
+      "title": "Canal+: Matchday preview and tactical breakdown",
+      "link": "https://www.canalplus.com/sport",
+      "description": "Analysts preview the key tactical battles and the players who can change games.",
+      "source": "Canal+",
+      "pubDate": "2026-10-09T07:45:00Z"
+    }
+  ]
+}
